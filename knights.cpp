@@ -33,20 +33,19 @@ void print_board(int board[][5], int row, int col){
 
 
 void solve(int board[][5], int num, int row, int col,bool &solved) {
-    if (num == size+1){
+    if (num > size){
         solved = true;
         return;
     }
 
-    if (row<0 || row>=5 || col<0 || col>=5){
+    if (row<0 || row>=5 || col<0 || col>=5){ // out of bounds for board
         return;
     }
 
     if (board[row][col]==0){
         board[row][col] = num;
         num++;
-
-        usleep(200000);
+        usleep(50000);
         print_board(board,5,5);
     }
     else{
@@ -63,7 +62,6 @@ void solve(int board[][5], int num, int row, int col,bool &solved) {
     if (!solved) solve(board,num,row-2,col-1, solved); // 8
 
     if (!solved) board[row][col] = 0;
-
 }
 
 
@@ -74,6 +72,6 @@ int main()
 
     create_board(board,5,5);
     print_board(board,5,5);
-    solve(board,num,0,0,solved);
+    solve(board,num,0,0,solved); // starting at (0,0)
     return 0;
 }
